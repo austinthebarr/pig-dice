@@ -6,14 +6,16 @@ function Player(finalScore){
 
 playerOne = new Player();
 playerTwo = new Player();
-// var player1Previous = [];
-// var player1Score = 0;
-// player1Previous.forEach(function(player1Previous){
-//   player1Score += player1Previous;
-// });
 
 
 
+Player.prototype.takeScore = function(takeScore){
+    playerOne.playerTempScore = this.finalScore + takeScore;
+}
+
+Player.prototype.resetArray = function(){
+  this.playerPrevious = [];
+}
 
 $(function(){
 
@@ -29,18 +31,22 @@ $(function(){
   });
 
   $(".current1Roll").text(roll);
-  $(".previous1Roll").text(playerOne.playerPrevious);
+  // $(".previous1Roll").text(playerOne.playerPrevious);
   $(".current1Score").text(playerOne.playerTempScore);
 
   });
 
   $("#stop1").click(function(){
     // debugger;
+    // playerOne.playerPrevious = ;
     var takeScore = playerOne.playerTempScore
+    // playerOne.resetArray();
+    playerOne.takeScore();
+
     // var finalScore = this.finalScore + playerOne.playerTempScore;
     $("#player1Score").text(takeScore);
     $(".current1Roll").text("");
-    $(".previous1Roll").text("");
+    // $(".previous1Roll").text("");
     $(".current1Score").text("");
 
 
