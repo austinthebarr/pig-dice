@@ -3,7 +3,7 @@ function Player(finalScore){
   this.playerTempScore = 0;
   this.finalScore = 0;
 };
-
+round = 1;
 tempScore = [];
 var playerOne = new Player();
 var playerTwo = new Player();
@@ -28,11 +28,17 @@ function pushTemp(score){
   };
 };
 
-// alert
+alert
 function switchUser(){
-  if(roll === 1)
+  if(roll === 1){
   alert("Crap, you just rolled 1. Switch player.")
+  // $("#roll1").hide()
+  // $("#roll2").hide()
+// } else if(roll !== 1){
+//   // $("#roll1").show()
+//   // $("#roll2").show()
 
+}
 };
 
  Player.prototype.win = function(){
@@ -42,6 +48,25 @@ function switchUser(){
 
    alert("YOU WIN!")
  }
+ };
+
+ function bonusRound(){
+   if(round === 7 && roll === 1){
+      tempScore = [];
+   }
+   else if (round === 7 ){
+     roll *= 2;
+    //  $(".bonusRound").text("BONUS ROUND!!!!");
+      }
+ };
+
+ function bonusText(){
+   if(round !== 7){
+     $(".bonusRound").hide();
+   } else {
+     $(".bonusRound").show();
+
+   }
  };
 
 Player.prototype.takeScore = function(takeScore){
@@ -54,12 +79,15 @@ Player.prototype.resetArray = function(){
 
 // user interface
 $(function(){
+  $(".round").text(round);
+    bonusText();
 //Click to roll Dice for Player 1
   $("#roll1").click(function(){
      arr = [1,2,3,4,5,6];
      roll = arr[Math.floor(Math.random()*arr.length)];
     switchUser();
-
+    bonusRound();
+    bonusText();
     playerOne.playerPrevious.push(roll)
     playerOne.playerTempScore = 0;
     playerOne.playerPrevious.forEach(function(currentScore){
@@ -75,6 +103,7 @@ $(function(){
     pushTemp(playerOne.playerTempScore);
     // playerOne.takeScore(playerOne.playerTempScore);
     playerOne.resetArray();
+
 
     $(".current1Roll").text(roll);
     $(".previous1Roll").text(tempScore);
@@ -105,7 +134,7 @@ $(function(){
      arr = [1,2,3,4,5,6];
      roll = arr[Math.floor(Math.random()*arr.length)];
     switchUser();
-
+bonusRound();
     playerTwo.playerPrevious.push(roll)
     playerTwo.playerTempScore = 0;
     playerTwo.playerPrevious.forEach(function(currentScore){
@@ -119,6 +148,7 @@ $(function(){
 
     pushTemp(playerTwo.playerTempScore);
     playerTwo.resetArray();
+
     $(".current2Roll").text(roll);
     $(".previous2Roll").text(tempScore);
     $(".current2Score").text(current);
@@ -127,20 +157,22 @@ $(function(){
   //click to collect final score
   $("#stop2").click(function(){
 
+
     // calculate(tempScore);
 //
     calculate2(tempScore);
     tempScore = [];
     playerOne.win()
     playerTwo.win();
-
+    round += 1
     $("#player2Score").text(playerTwo.finalScore);
     $(".current2Roll").text("");
     $(".previous2Roll").text("");
     $(".current2Score").text("");
     $("#player2").hide();
     $("#player1").show();
+    $(".round").text(round);
+  bonusText();
   });
-
 
 });
