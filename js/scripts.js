@@ -5,8 +5,7 @@ function Player(finalScore){
 
 };
 
- tempScore = [];
-var temp2Score = [];
+tempScore = [];
 var playerOne = new Player();
 var playerTwo = new Player();
 
@@ -22,12 +21,6 @@ function calculate2(array){
   });
 };
 
-// Player.prototype.calculate = function(){
-//   tempScore.forEach(function(score){
-//     this.finalScore += score
-//   });
-// };
-
 function pushTemp(score){
   if(score !== 1)
     tempScore.push(score)
@@ -42,13 +35,6 @@ function switchUser(){
   alert("Crap, you just rolled 1. Switch player.")
 
 };
- // function win(){
- //   if(playerOne.finalScore >=100){
- //   this.finalScore = 0;
- //   alert("YOU WIN!")
- // }
- // };
-
 
  Player.prototype.win = function(){
    if(this.finalScore >=100){
@@ -58,7 +44,6 @@ function switchUser(){
    alert("YOU WIN!")
  }
  };
-//alert
 
 Player.prototype.takeScore = function(takeScore){
     this.finalScore.push(takeScore);
@@ -68,12 +53,10 @@ Player.prototype.resetArray = function(){
   this.playerPrevious = [];
 };
 
-
 // user interface
 $(function(){
 //Click to roll Dice for Player 1
   $("#roll1").click(function(){
-    // debugger;
      arr = [1,2,3,4,5,6];
      roll = arr[Math.floor(Math.random()*arr.length)];
     switchUser();
@@ -102,11 +85,9 @@ $(function(){
   $("#stop1").click(function(){
     //this calculates finalScore and clears out tempScore
     // calculate(tempScore);
-    //
-  calculate(tempScore);
-    //
-    tempScore = [];
+    calculate(tempScore);
 
+    tempScore = [];
     playerOne.win();
     playerTwo.win();
 
@@ -152,9 +133,6 @@ $(function(){
     playerOne.win()
     playerTwo.win();
 
-
-
-    // var finalScore = this.finalScore + playerOne.playerTempScore;
     $("#player2Score").text(playerTwo.finalScore);
     $(".current2Roll").text("");
     $(".previous2Roll").text("");
