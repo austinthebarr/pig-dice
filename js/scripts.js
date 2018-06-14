@@ -57,9 +57,17 @@ function bonusText(){
     $(".bonusRound").hide();
   } else {
     $(".bonusRound").show();
-
   }
 };
+
+function clearValues(){
+  $(".current1Roll").text("");
+  $(".previous1Roll").text("");
+  $(".current1Score").text("");
+  $(".current2Roll").text("");
+  $(".previous2Roll").text("");
+  $(".current2Score").text("");
+}
 
 Player.prototype.takeScore = function(takeScore){
   this.finalScore.push(takeScore);
@@ -113,9 +121,7 @@ $(function(){
     playerTwo.win();
 
     $("#player1Score").text(playerOne.finalScore);
-    $(".current1Roll").text("");
-    $(".previous1Roll").text("");
-    $(".current1Score").text("");
+    clearValues();
     $("#player1").hide();
     $("#player2").show();
   });
@@ -153,9 +159,7 @@ $(function(){
     playerTwo.win();
     round += 1
     $("#player2Score").text(playerTwo.finalScore);
-    $(".current2Roll").text("");
-    $(".previous2Roll").text("");
-    $(".current2Score").text("");
+    clearValues();
     $("#player2").hide();
     $("#player1").show();
     $(".round").text(round);
