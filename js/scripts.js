@@ -2,7 +2,6 @@ function Player(finalScore){
   this.playerPrevious = [];
   this.playerTempScore = 0;
   this.finalScore = 0;
-
 };
 
 tempScore = [];
@@ -97,6 +96,8 @@ $(function(){
     $(".current1Roll").text("");
     $(".previous1Roll").text("");
     $(".current1Score").text("");
+    $("#player1").hide();
+    $("#player2").show();
   });
 //click to toll dice for playerTwo
   $("#roll2").click(function(){
@@ -137,7 +138,8 @@ $(function(){
     $(".current2Roll").text("");
     $(".previous2Roll").text("");
     $(".current2Score").text("");
-
+    $("#player2").hide();
+    $("#player1").show();
   });
 
 
