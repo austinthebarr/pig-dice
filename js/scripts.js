@@ -49,9 +49,12 @@ function switchUser(){
  // }
  // };
 
+
  Player.prototype.win = function(){
    if(this.finalScore >=100){
-   this.finalScore = 0;
+      location.reload();
+
+
    alert("YOU WIN!")
  }
  };
@@ -158,5 +161,6 @@ $(function(){
     $(".current2Score").text("");
 
   });
+
 
 });
