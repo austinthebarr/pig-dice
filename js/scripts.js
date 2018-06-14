@@ -27,9 +27,15 @@ function pushTemp(score){
 
 function switchUser(){
   if(roll === 1)
-  alert("switchUser")
+  alert("Crap, you just rolled 1. Swich player.")
 
 }
+ function win(){
+   if(playerOne.finalScore >=100)
+   alert("YOU WIN!")
+ }
+
+
 
 Player.prototype.takeScore = function(takeScore){
     this.finalScore.push(takeScore);
@@ -54,13 +60,22 @@ $(function(){
     playerOne.playerTempScore += currentScore;
   });
 
+  //debugger;
+  var current = roll;
+  for (var i = 0; i<tempScore.length; i+=1){
+    current += tempScore[i];
+  }
+
+
+
   pushTemp(playerOne.playerTempScore);
   // playerOne.takeScore(playerOne.playerTempScore);
   playerOne.resetArray();
 
+
   $(".current1Roll").text(roll);
   $(".previous1Roll").text(tempScore);
-  $(".current1Score").text(playerOne.playerTempScore);
+  $(".current1Score").text(current);
 
   });
 
@@ -68,7 +83,7 @@ $(function(){
     //this calculates finalScore and clears out tempScore
     calculate(tempScore);
     tempScore = [];
-
+    win();
     console.log(playerOne.finalScore);
 
     // var finalScore = this.finalScore + playerOne.playerTempScore;
