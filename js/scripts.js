@@ -1,12 +1,12 @@
-
-
 function Player(finalScore){
   this.playerPrevious = [];
   this.playerTempScore = 0;
   this.finalScore = 0;
-}
 
-var tempScore = [];
+};
+
+ tempScore = [];
+var temp2Score = [];
 var playerOne = new Player();
 var playerTwo = new Player();
 
@@ -14,84 +14,149 @@ function calculate(array){
   tempScore.forEach(function(score){
     playerOne.finalScore += score
   });
-}
+};
 
+function calculate2(array){
+  tempScore.forEach(function(score){
+    playerTwo.finalScore += score
+  });
+};
+
+// Player.prototype.calculate = function(){
+//   tempScore.forEach(function(score){
+//     this.finalScore += score
+//   });
+// };
 
 function pushTemp(score){
   if(score !== 1)
     tempScore.push(score)
   else{
     tempScore = [];
-  }
-}
+  };
+};
 
+// alert
 function switchUser(){
   if(roll === 1)
-  alert("Crap, you just rolled 1. Swich player.")
+  alert("Crap, you just rolled 1. Switch player.")
 
-}
- function win(){
-   if(playerOne.finalScore >=100)
+};
+ // function win(){
+ //   if(playerOne.finalScore >=100){
+ //   this.finalScore = 0;
+ //   alert("YOU WIN!")
+ // }
+ // };
+
+ Player.prototype.win = function(){
+   if(this.finalScore >=100){
+   this.finalScore = 0;
    alert("YOU WIN!")
  }
-
-
+ };
+//alert
 
 Player.prototype.takeScore = function(takeScore){
     this.finalScore.push(takeScore);
-}
+};
 
 Player.prototype.resetArray = function(){
   this.playerPrevious = [];
-}
+};
 
+
+// user interface
 $(function(){
-//Click to roll Dice
+//Click to roll Dice for Player 1
   $("#roll1").click(function(){
-  // debugger;
-  arr = [1,2,3,4,5,6];
-  roll = arr[Math.floor(Math.random()*arr.length)];
-  switchUser();
+    // debugger;
+     arr = [1,2,3,4,5,6];
+     roll = arr[Math.floor(Math.random()*arr.length)];
+    switchUser();
 
-
-  playerOne.playerPrevious.push(roll)
-  playerOne.playerTempScore = 0;
-  playerOne.playerPrevious.forEach(function(currentScore){
+    playerOne.playerPrevious.push(roll)
+    playerOne.playerTempScore = 0;
+    playerOne.playerPrevious.forEach(function(currentScore){
     playerOne.playerTempScore += currentScore;
+    });
+
+    //debugger;
+    var current = roll;
+    for (var i = 0; i<tempScore.length; i+=1){
+      current += tempScore[i];
+    };
+
+    pushTemp(playerOne.playerTempScore);
+    // playerOne.takeScore(playerOne.playerTempScore);
+    playerOne.resetArray();
+
+    $(".current1Roll").text(roll);
+    $(".previous1Roll").text(tempScore);
+    $(".current1Score").text(current);
   });
-
-  //debugger;
-  var current = roll;
-  for (var i = 0; i<tempScore.length; i+=1){
-    current += tempScore[i];
-  }
-
-
-
-  pushTemp(playerOne.playerTempScore);
-  // playerOne.takeScore(playerOne.playerTempScore);
-  playerOne.resetArray();
-
-
-  $(".current1Roll").text(roll);
-  $(".previous1Roll").text(tempScore);
-  $(".current1Score").text(current);
-
-  });
-
+// Click to Collect amount
   $("#stop1").click(function(){
     //this calculates finalScore and clears out tempScore
-    calculate(tempScore);
+    // calculate(tempScore);
+    //
+  calculate(tempScore);
+    //
     tempScore = [];
-    win();
-    console.log(playerOne.finalScore);
 
-    // var finalScore = this.finalScore + playerOne.playerTempScore;
+    playerOne.win();
+    playerTwo.win();
+
+
+   // var finalScore = this.finalScore + playerOne.playerTempScore;
     $("#player1Score").text(playerOne.finalScore);
     $(".current1Roll").text("");
     $(".previous1Roll").text("");
     $(".current1Score").text("");
+  });
+//click to toll dice for playerTwo
+  $("#roll2").click(function(){
 
+     arr = [1,2,3,4,5,6];
+     roll = arr[Math.floor(Math.random()*arr.length)];
+    switchUser();
+
+    playerTwo.playerPrevious.push(roll)
+    playerTwo.playerTempScore = 0;
+    playerTwo.playerPrevious.forEach(function(currentScore){
+    playerTwo.playerTempScore += currentScore;
+    });
+
+    var current = roll;
+    for (var i = 0; i<tempScore.length; i+=1){
+      current += tempScore[i];
+    };
+
+    pushTemp(playerTwo.playerTempScore);
+    playerTwo.resetArray();
+    $(".current2Roll").text(roll);
+    $(".previous2Roll").text(tempScore);
+    $(".current2Score").text(current);
 
   });
+  //click to collect final score
+  $("#stop2").click(function(){
+
+    // calculate(tempScore);
+//
+    calculate2(tempScore);
+    tempScore = [];
+    playerOne.win()
+    playerTwo.win();
+
+
+
+    // var finalScore = this.finalScore + playerOne.playerTempScore;
+    $("#player2Score").text(playerTwo.finalScore);
+    $(".current2Roll").text("");
+    $(".previous2Roll").text("");
+    $(".current2Score").text("");
+
+  });
+
 });
